@@ -6,6 +6,10 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar, Clock, User, Mail, Phone, CheckCircle } from "lucide-react";
 import { format } from "date-fns";
+import { errorService } from "@/services/api/errorService";
+
+import { DateTime } from 'luxon';
+
 
 interface BookingFormProps {
   selectedDate: Date;
@@ -29,19 +33,32 @@ export const BookingForm = ({ selectedDate, selectedTime, onBack }: BookingFormP
 
     // Simulate API call - will be replaced with n8n webhook
     try {
-      // Mock submission
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Here you would send to n8n webhook:
-      // const response = await fetch('YOUR_N8N_WEBHOOK_URL', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     date: format(selectedDate, 'yyyy-MM-dd'),
-      //     time: selectedTime,
-      //     ...formData
-      //   })
-      // });
+
+      const fechaHora = DateTime.fromISO(selectedDate.toISOString ? selectedDate.toISOString() : selectedDate, { zone: 'America/New_York' })
+        .set({
+          hour: parseInt(selectedTime.split(':')[0]),
+          minute: parseInt(selectedTime.split(':')[1]),
+          second: 0,
+          millisecond: 0,
+        });
+
+      const fechaHoraMas30 = fechaHora.plus({ minutes: 30 });
+
+      // Convertir al formato ISO correcto para Google Calendar (ISO 8601 con zona horaria)
+      const startDateTime = fechaHora.toISO();       // Ejemplo: "2025-10-19T15:30:00.000-04:00"
+      const endDateTime = fechaHoraMas30.toISO();    // Ejemplo: "2025-10-19T16:00:00.000-04:00"
+
+
+      const payload = {
+        ...formData,
+        date: startDateTime,
+        date30: endDateTime,
+        time: selectedTime,
+        action: 'create'
+      };
+
+      console.log('Booking Data:', payload);
+      const response = await errorService.createEvento(payload);
 
       setIsSuccess(true);
       toast({
