@@ -1,0 +1,44 @@
+# --------------------
+# Etapa 1: Compilación (Build Stage)
+# Usa una imagen base de Node para instalar dependencias y compilar el proyecto
+# --------------------
+FROM node:20-alpine as build
+
+# Establece el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copia los archivos de configuración de dependencias e instálalas
+COPY package.json package-lock.json ./
+RUN npm install
+
+# Copia el código fuente restante
+COPY . .
+
+# Compila la aplicación. 
+# Si usas Vite o CRA (create-react-app), el comando 'npm run build' es estándar.
+# Si tu script de build en package.json es diferente, ajústalo aquí.
+RUN npm run build
+
+# --------------------
+# Etapa 2: Servidor (Production Stage)
+# Usa Nginx, una imagen base muy ligera, para servir los archivos estáticos
+# --------------------
+FROM nginx:alpine
+
+# Copia los archivos de configuración de Nginx personalizados para manejar rutas SPA (Single Page Application)
+# Nota: La ubicación del archivo de configuración interno debe ser la misma que la del Docker Compose
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copia la salida de la compilación de React al directorio de servicio de Nginx
+# La ruta de salida para React es comúnmente 'dist', 'build' o 'out'. Asegúrate de que '/app/dist' sea correcto.
+# Ajustar según tu herramienta de construcción (Vite/CRA):
+# - Vite: /app/dist
+# - CRA (Create React App): /app/build
+# Si usas CRA: COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# El puerto 80 es el puerto interno en el que Nginx escucha dentro del contenedor
+EXPOSE 80
+
+# Comando para iniciar Nginx
+CMD ["nginx", "-g", "daemon off;"]

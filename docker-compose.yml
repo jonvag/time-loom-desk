@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  # Servicio de frontend (React)
+  frontend:
+    # Ruta a la carpeta de tu proyecto React y usa el Dockerfile adjunto
+    build:
+      context: . 
+      dockerfile: Dockerfile
+    container_name: time-loom-react-frontend
+    # Mapeo de puertos: 
+    # El puerto del VPS (4800) se mapea al puerto interno del contenedor (80, donde corre Nginx)
+    ports:
+      - "4800:80"
+    # Reinicia si el contenedor se detiene, a menos que se detenga manualmente.
+    restart: unless-stopped
