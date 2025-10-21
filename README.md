@@ -23,5 +23,7 @@ por primera vez
 docker-compose up -d
 
 redeploy
-docker-compose down && docker-compose up -d
+docker-compose down 
+docker compose build
+docker-compose up -d
 
