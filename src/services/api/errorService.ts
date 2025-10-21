@@ -5,7 +5,7 @@ class ErrorService {
   async getAvailable<T, R>(payload: T): Promise<ApiResponse<R>> {
     try {
 
-      const response = await apiClient.post<R>('/webhook-test/18951f33-09ff-4ad6-9469-6f918190f44d', payload);
+      const response = await apiClient.post<R>('/webhook/18951f33-09ff-4ad6-9469-6f918190f44d', payload);
 
       return {
         data: response.data,
