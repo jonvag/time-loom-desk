@@ -91,9 +91,9 @@ export const BookingForm = ({ selectedDate, selectedTime, onBack }: BookingFormP
             <CheckCircle className="w-10 h-10 text-primary" />
           </div>
           <div>
-            <h2 className="text-3xl font-bold mb-2">You're all set!</h2>
+            <h2 className="text-3xl font-bold mb-2">¡Ya está todo listo!</h2>
             <p className="text-muted-foreground">
-              Your meeting has been scheduled for
+              Su reunión ha sido programada para
             </p>
           </div>
           <Card className="p-6 bg-secondary">
@@ -109,11 +109,11 @@ export const BookingForm = ({ selectedDate, selectedTime, onBack }: BookingFormP
             </div>
           </Card>
           <p className="text-sm text-muted-foreground">
-            A confirmation email has been sent to <strong>{formData.email}</strong>
+            Se ha enviado un correo electrónico de confirmación a <strong>{formData.email}</strong>
           </p>
-          <Button onClick={() => window.location.reload()} className="gradient-primary shadow-glow">
+          {/* <Button onClick={() => window.location.reload()} className="gradient-primary shadow-glow">
             Schedule Another Meeting
-          </Button>
+          </Button> */}
         </div>
       </Card>
     );
@@ -123,9 +123,9 @@ export const BookingForm = ({ selectedDate, selectedTime, onBack }: BookingFormP
     <Card className="p-8 shadow-card animate-in fade-in-50 duration-500">
       <div className="space-y-6">
         <div>
-          <h2 className="text-3xl font-bold mb-2">Confirm Your Booking</h2>
+          <h2 className="text-3xl font-bold mb-2">Confirmar reunión.</h2>
           <p className="text-muted-foreground">
-            Please provide your details to complete the booking
+            Por favor provee los detalles para tu cita.
           </p>
         </div>
 
@@ -148,7 +148,7 @@ export const BookingForm = ({ selectedDate, selectedTime, onBack }: BookingFormP
           <div className="space-y-2">
             <Label htmlFor="name" className="flex items-center gap-2">
               <User className="w-4 h-4" />
-              Full Name
+              Nombre completo
             </Label>
             <Input
               id="name"
@@ -157,7 +157,7 @@ export const BookingForm = ({ selectedDate, selectedTime, onBack }: BookingFormP
               required
               value={formData.name}
               onChange={handleInputChange}
-              placeholder="John Doe"
+              placeholder="John Smith"
               className="bg-secondary border-border transition-smooth focus:shadow-glow"
             />
           </div>
@@ -165,7 +165,7 @@ export const BookingForm = ({ selectedDate, selectedTime, onBack }: BookingFormP
           <div className="space-y-2">
             <Label htmlFor="email" className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
-              Email Address
+              Dirección de correo electrónico
             </Label>
             <Input
               id="email"
@@ -182,7 +182,7 @@ export const BookingForm = ({ selectedDate, selectedTime, onBack }: BookingFormP
           <div className="space-y-2">
             <Label htmlFor="phone" className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
-              Phone Number
+              Teléfono
             </Label>
             <Input
               id="phone"
@@ -204,14 +204,14 @@ export const BookingForm = ({ selectedDate, selectedTime, onBack }: BookingFormP
               className="flex-1"
               disabled={isSubmitting}
             >
-              Back
+              Atrás
             </Button>
             <Button
               type="submit"
               className="flex-1 gradient-primary shadow-glow"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Confirming..." : "Confirm Booking"}
+              {isSubmitting ? "Confirmando..." : "Confirmar reserva"}
             </Button>
           </div>
         </form>

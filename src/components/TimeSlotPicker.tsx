@@ -261,18 +261,18 @@ const fetchTimeSlots = async (date: Date): Promise<TimeSlot[]> => {
         <div className="space-y-4 animate-in fade-in-50 duration-300">
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-semibold">
-              Available times for {format(selectedDate, 'EEEE, MMMM d')}
+              Bloques disponibles para {format(selectedDate, 'EEEE, MMMM d')}
             </h3>
             {!slotsLoading && totalSlots > 0 && (
               <span className="text-sm text-muted-foreground">
-                {availableSlots} of {totalSlots} slots available
+                {availableSlots} de {totalSlots} bloques disponibles
               </span>
             )}
           </div>
 
           {slotsLoading ? (
             <div className="text-center py-8">
-              <p>Checking availability...</p>
+              <p>Chequeando disponibilidad...</p>
             </div>
           ) : (
             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">

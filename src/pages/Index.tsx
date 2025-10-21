@@ -28,8 +28,8 @@ const Index = () => {
               <CalendarDays className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold">Schedule a Meeting</h1>
-              <p className="text-sm text-muted-foreground">Book your preferred time slot</p>
+              <h1 className="text-2xl font-bold">Agendar cita</h1>
+              <p className="text-sm text-muted-foreground">Consultar disponibilidad</p>
             </div>
           </div>
         </div>
@@ -40,9 +40,9 @@ const Index = () => {
         {bookingStep === "selection" ? (
           <div className="space-y-8">
             <div className="text-center space-y-2 max-w-2xl mx-auto">
-              <h2 className="text-4xl font-bold">Choose Your Time</h2>
+              <h2 className="text-4xl font-bold">Elegir fecha</h2>
               <p className="text-lg text-muted-foreground">
-                Select a day and time that works best for you
+                Selecciona el día y la hora que mejor te convengan para tu cita.
               </p>
             </div>
             <TimeSlotPicker onSlotSelect={handleSlotSelect} />
@@ -61,7 +61,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="border-t border-border/50 mt-24">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          <p>Powered by modern scheduling technology</p>
+          <p>Realizado por nex-gen 🧑‍💻</p>
         </div>
       </footer>
     </div>
