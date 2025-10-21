@@ -62,13 +62,13 @@ export const BookingForm = ({ selectedDate, selectedTime, onBack }: BookingFormP
 
       setIsSuccess(true);
       toast({
-        title: "Booking confirmed!",
-        description: "You'll receive a confirmation email shortly.",
+        title: "Reunión confirmada!",
+        description: "Recibirás un correo electrónico de confirmación en breve.",
       });
     } catch (error) {
       toast({
-        title: "Booking failed",
-        description: "Please try again or contact support.",
+        title: "Error al confirmar la reunión.",
+        description: "Por favor contacta a soporte.",
         variant: "destructive",
       });
     } finally {
