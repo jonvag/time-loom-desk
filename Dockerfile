@@ -29,7 +29,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 # Puerto por defecto de NGINX
-EXPOSE 80
+EXPOSE 3100
 
 # Comando para iniciar NGINX
 CMD ["nginx", "-g", "daemon off;"]
