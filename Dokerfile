@@ -1,31 +1,16 @@
-# Dockerfile para React con Dokploy
-FROM node:20-alpine as build
-
-WORKDIR /app
-
-# Copia los archivos de dependencias
-COPY package.json package-lock.json ./
-RUN npm install
-
-# Copia el código fuente
-COPY . .
-
-# Compila la aplicación
-RUN npm run build
-
-# Etapa final - solo los archivos estáticos
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Instala un servidor estático simple
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+# Instalar serve globalmente para servir archivos estáticos
 RUN npm install -g serve
 
-# Copia los archivos buildeados
-COPY --from=build /app/dist /app/build
-
-# Expone el puerto que usará Dokploy
 EXPOSE 3000
 
-# Comando para servir los archivos estáticos
 CMD ["serve", "-s", "build", "-l", "3000"]
