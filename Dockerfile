@@ -25,9 +25,8 @@ FROM nginx:alpine AS production-stage
 # Copia el archivo de configuración de NGINX personalizado (ver el paso 2)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copia los archivos estáticos generados desde la etapa 'build-stage'
-# La carpeta 'build' es donde React deja los archivos compilados
-COPY --from=build-stage /app/build /usr/share/nginx/html
+# CORREGIDO: Vite genera en 'dist', no en 'build'
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 # Puerto por defecto de NGINX
 EXPOSE 80
